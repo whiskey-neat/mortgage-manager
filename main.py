@@ -49,11 +49,19 @@ def create_product():
     print("\n:: Creating a New Product ::")  # DISPLAY CREATE A NEW PRODUCT MENU
     print("--------------------------------------")
     new_product_name = input("Please input product name : ")  # ASK USER FOR A NEW PRODUCT NAME
-    try:
-        new_product_rate = float(input("Please input the interest rate for this product :"))  # ASK USER FOR PRODUCT INTEREST RATE
-    except ValueError:  # CHECK USER ENTERED A NUMBER
-        print("\nEnter a number")
-
+    while True:
+        try:
+            new_product_rate = float(input("Please input the interest rate for this product : "))  # ASK USER FOR PRODUCT INTEREST RATE
+        except ValueError:  # CHECK USER ENTERED A VALID NUMBER
+            print("\nInterest rate must be a number.")
+            continue
+        if new_product_rate < 0:
+            print("\nInterest rate cannot be negative.")
+            continue
+        else:
+            break
+    # AFTER USER HAS ENTERED PRODUCT DETAILS
+    # GIVE USER A SUMMARY OF WHAT THEY HAVE ENTERED
     print("\n===================================================")
     print("Product Summary")
     print("===================================================")
