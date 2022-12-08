@@ -13,16 +13,28 @@ def get_user_input(number):
             user_option = int(input("\nPlease select a menu option: "))
         except ValueError:
             print("\nEnter a value between 1 and", number)
+            display_current_menu()
             continue
         if (user_option > number) or (user_option <= 0):
             print("\nEnter a value between 1 and", number)
+            display_current_menu()
             continue
         else:
             break
     return user_option
 
 
-# PRODUCTS SUBMENU
+# CHOOSE WHICH MENU SHOULD BE DISPLAYED WHEN VALIDATING INPUT
+def display_current_menu():
+    if display_main_menu:
+        main_menu()
+    elif display_products_menu:
+        manage_products_menu()
+    elif display_quotes_menu:
+        manage_quotes_menu()
+
+
+# MANAGE PRODUCTS MENU
 def manage_products_menu():
     print("\n------------------------------------------")
     print(":: Mortgage Products ::")
@@ -34,7 +46,7 @@ def manage_products_menu():
     print("5. Return to Main Menu")
 
 
-# QUOTES SUBMENU
+# MANAGE QUOTES SUBMENU
 def manage_quotes_menu():
     print("\n------------------------------------------")
     print(":: Mortgage Quotes ::")
@@ -69,17 +81,29 @@ def create_product():
     print("Product Rate :", new_product_rate)
     print("---------------------------------------------------")
 
+    product = [new_product_name, new_product_rate]
+    return product
+
+    # confirmation = input("\nPlease confirm the product's details (input 1) to proceed with product creation (or any key to quit) :")
+    # if confirmation == "1":
+    #     product = [new_product_name, new_product_rate]
+    #     print("\nCreating New Product")
+    #     print("Generating new product........")
+    #     print("Generated product name : ", new_product_name)
+    #     print("Generated product rate", new_product_rate)
+    #     input("Press enter to continue")
+    #     return product
+    # else:
+    #     pass
+
+
+def get_confirmation():
     confirmation = input("\nPlease confirm the product's details (input 1) to proceed with product creation (or any key to quit) :")
     if confirmation == "1":
-        new_product = [new_product_name, new_product_rate]
+        return True
     else:
-        manage_products_menu()
-    print("\nCreating New Product")
-    print("Generating new product........")
-    print("Generated product name : ", new_product_name)
-    print("Generated product rate", new_product_rate)
-    input("Press enter to continue")
-    return new_product
+        return False
+
 
 def view_products(existing_products):
     # SUBMENU HEADING
@@ -101,8 +125,8 @@ display_main_menu = True
 while display_main_menu:
     main_menu()
     main_menu_option = get_user_input(3)  # MAIN MENU: GET USER INPUT
-    # if main_menu_option:
-    #     display_main_menu = False
+    if main_menu_option:  # IF VALID INPUT
+        display_main_menu = False  # STOP SHOWING MAIN MENU
 
     #  --DISPLAY MANAGE MORTGAGE PRODUCTS--
     if main_menu_option == 1:
@@ -111,35 +135,68 @@ while display_main_menu:
         while display_products_menu:
             manage_products_menu()
             manage_products_option = get_user_input(5)
-            # if manage_products_option:
-            #     display_products_menu = False
+            if manage_products_option:  # IF VALID INPUT
+                display_products_menu = False  # STOP SHOWING MANAGE PRODUCTS MENU
 
-            #  SUB-OPTION 1: ADD A NEW PRODUCT
+            #  MANAGE PRODUCTS: ADD A NEW PRODUCT
             if manage_products_option == 1:
-                new_product = create_product()
-                product_list.append(new_product)
-                print(product_list)
+                new_product = create_product()  # GET INPUT FOR NEW PRODUCT
+                confirmation = get_confirmation()
+                if confirmation:  # IF CONFIRMED
+                    product_list.append(new_product)  # ADD NEW PRODUCT
+                    print("\nCreating New Product")
+                    print("Generating new product........")
+                    print("Generated product name : ", new_product[0])
+                    print("Generated product rate", new_product[1])
+                    input("Press enter to continue")
+                    # print(product_list) # // USED TO TEST CONFIRMATION
+                else:
+                    pass
+                    # print(product_list) # // USED TO TEST CONFIRMATION
+                display_products_menu = True
 
-            #  SUB-OPTION 2: VIEW A LIST OF PRODUCTS
+            #  MANAGE PRODUCTS: VIEW A LIST OF PRODUCTS
             elif manage_products_option == 2:
                 view_products(product_list)
+                display_products_menu = True
 
-            #  SUB-OPTION 3: AMEND A PRODUCT
+            #  MANAGE PRODUCTS: AMEND A PRODUCT
             elif manage_products_option == 3:
                 print("\nThis is where you amend products")
 
-            #  SUB-OPTION 4: DELETE A PRODUCT
+            #  MANAGE PRODUCTS: DELETE A PRODUCT
             elif manage_products_option == 4:
                 print("\nThis is where you delete products")
 
-            #  SUB-OPTION 5: RETURN TO MAIN MENU
+            #  MANAGE PRODUCTS: RETURN TO MAIN MENU
             else:
-                pass
+                display_main_menu = True
 
     #  --MANAGE MORTGAGE QUOTES--
     elif main_menu_option == 2:
-        manage_quotes_menu()
+        display_quotes_menu = True
+        while display_quotes_menu:
+            manage_quotes_menu()
+            manage_quotes_option = get_user_input(4)
+            if manage_quotes_option:
+                display_quotes_menu = False
 
-    # OPTION 3: QUIT
+            # MANAGE QUOTES: ADD A NEW QUOTE
+            if manage_quotes_option == 1:
+                print("You are creating a quote")
+                display_quotes_menu = True
+            # MANAGE QUOTES: VIEW A LIST OF QUOTES
+            elif manage_quotes_option == 2:
+                print("You are viewing quotes")
+                display_quotes_menu = True
+            # MANAGE QUOTES: AMEND A QUOTE
+            elif manage_quotes_option == 3:
+                print("You are amending quotes")
+                display_quotes_menu = True
+            # MANAGE QUOTES: RETURN TO MAIN MENU
+            else:
+                display_main_menu = True
+
+    # MAIN MENU: QUIT
     else:
         print("You exited")
