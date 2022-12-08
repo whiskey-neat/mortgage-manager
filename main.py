@@ -12,18 +12,18 @@ def get_user_input(number):
         try:
             user_option = int(input("\nPlease select a menu option: "))
         except ValueError:
-            print("\nEnter a value between 1 and", number, "\n")
+            print("\nEnter a value between 1 and", number)
             continue
         if (user_option > number) or (user_option <= 0):
-            print("\nEnter a value between 1 and", number, )
+            print("\nEnter a value between 1 and", number)
             continue
         else:
             break
     return user_option
 
 
+# PRODUCTS SUBMENU
 def manage_products_menu():
-    # DISPLAY SUB MENU TITLE AND OPTIONS
     print("\n------------------------------------------")
     print(":: Mortgage Products ::")
     print("------------------------------------------")
@@ -34,8 +34,8 @@ def manage_products_menu():
     print("5. Return to Main Menu")
 
 
+# QUOTES SUBMENU
 def manage_quotes_menu():
-    # DISPLAY SUB MENU TITLE AND OPTIONS
     print("\n------------------------------------------")
     print(":: Mortgage Quotes ::")
     print("------------------------------------------")
