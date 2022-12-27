@@ -81,13 +81,13 @@ quotes.
 - ✔ **List Products**: (5 Marks)
   - ✔ Display a list of products available in the application
   - ✔ _key_enter_ to go back to main menu of "Manage Products"
-- 🚧 **Amend Products**:
-  - 🔳 Display a list of products and prompt user to select one
-  - 🔳 Allow user to amend values for the following fields:
+- ✔ **Amend Products**:
+  - ✔ Display a list of products and prompt user to select one
+  - ✔ Allow user to amend values for the following fields:
     - Product Name
     - Product Interest Rate
     - Allow user to escape from amending fields using _key_q or key_Q_
-  - 🔳 Display an amended summary
+  - ✔ Display an amended summary
 - 🔳 **Delete Products:**
   - 🔳 Display a list of products and prompt the user to select one or _escape_
   - 🔳 Ask the user to confirm deletion of product
