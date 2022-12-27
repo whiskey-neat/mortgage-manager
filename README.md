@@ -16,12 +16,25 @@
     <a href="https://github.com/whiskey-neat/mortgage-manager"><strong>Explore the docs »</strong></a>
     <br />
     <br />
+    <a href="https://github.com/whiskey-neat/mortgage-manager">View Demo</a>
     ·
     <a href="https://github.com/whiskey-neat/mortgage-manager/issues">Report Bug</a>
     ·
     <a href="https://github.com/whiskey-neat/mortgage-manager/issues">Request Feature</a>
   </p>
 </div>
+
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#progress">Progress</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -68,17 +81,17 @@ quotes.
 - ✔ **List Products**: (5 Marks)
   - ✔ Display a list of products available in the application
   - ✔ _key_enter_ to go back to main menu of "Manage Products"
-- 🚧 **Amend Products**:
+- ✔ **Amend Products**:
   - ✔ Display a list of products and prompt user to select one
   - ✔ Allow user to amend values for the following fields:
     - Product Name
     - Product Interest Rate
     - Allow user to escape from amending fields using _key_q or key_Q_
-  -  :round_pushpin: Display an amended summary
+  - ✔ Display an amended summary
 - 🔳 **Delete Products:**
   - 🔳 Display a list of products and prompt the user to select one or _escape_
   - 🔳 Ask the user to confirm deletion of product
--  Return to Main Menu (1 Mark)
+- ✔ Return to Main Menu (1 Mark)
 
 ### ⬜ Manage Mortgage Quotes Requirements (30 Marks)
 
