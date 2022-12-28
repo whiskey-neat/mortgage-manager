@@ -66,7 +66,7 @@ quotes.
 
 - ✔ The application will exit upon selection of Option 3
 
-### 🚀 Manage Mortgage Products Requirements (35 Marks)
+### ✅ Manage Mortgage Products Requirements (35 Marks)
 
 - ✔ Display the "Manage Mortgage Products" submenu (3 Marks)
 - ✔ **Create Product**:
@@ -88,15 +88,15 @@ quotes.
     - Product Interest Rate
     - Allow user to escape from amending fields using _key_q or key_Q_
   - ✔ Display an amended summary
-- 🔳 **Delete Products:**
-  - 🔳 Display a list of products and prompt the user to select one or _escape_
-  - 🔳 Ask the user to confirm deletion of product
+- ✔ **Delete Products:**
+  - ✔ Display a list of products and prompt the user to select one or _escape_
+  - ✔ Ask the user to confirm deletion of product
 - ✔ Return to Main Menu (1 Mark)
 
-### ⬜ Manage Mortgage Quotes Requirements (30 Marks)
+### 🚀 Manage Mortgage Quotes Requirements (30 Marks)
 
-- 🔳 Display the "Manage Mortgage Quotes" submenu (4 Marks)
-- 🔳 **Create Quote**: (8 Marks)
+- ✔ Display the "Manage Mortgage Quotes" submenu (4 Marks)
+- :construction: **Create Quote**: (8 Marks)
   - Allow the user to create a quote requiring the following fields:
     - Customer Name
     - Loan Amount
