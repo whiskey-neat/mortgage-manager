@@ -26,6 +26,7 @@ def print_manage_quotes_menu():
 
 
 def user_menu_choice(number):
+
     # CHOOSE WHICH MENU SHOULD BE RE-DISPLAYED WHEN VALIDATING INPUT
     def display_current_menu():
         if display_main_menu:
@@ -36,12 +37,15 @@ def user_menu_choice(number):
             print_manage_quotes_menu()
 
     while True:
+        # GET USER INPUT
         try:
             user_menu_option = int(input("\nPlease select a menu option: "))
+        # INPUT VALIDATION AGAINST NON-NUMBER CHARACTERS
         except ValueError:
             print("\nEnter a value between 1 and", number)
             display_current_menu()
             continue
+        # VALIDATE NUMBER
         if (user_menu_option > number) or (user_menu_option <= 0):
             print("\nEnter a value between 1 and", number)
             display_current_menu()
@@ -52,17 +56,19 @@ def user_menu_choice(number):
 
 def create_new_product():
     print("\n:: Creating a New Product ::" + "\n" + "-" * 40)
-    # ENTER A PRODUCT NAME
+
+    # PRODUCT NAME
     new_product_name = input("Please input product name : ")
+
+    # PRODUCT RATE
     while True:
-        # ENTER A PRODUCT RATE
         new_product_rate = input("Please input the interest rate for this product : ")
         try:
             new_product_rate = float(new_product_rate)
             if new_product_rate < 0:
                 print("\nInterest rate cannot be negative.")
             else:
-                new_product = [new_product_name, new_product_rate]
+                new_product = [new_product_name, new_product_rate]  # IF VALID -> SAVE NEW PRODUCT DETAILS TO VARIABLE
                 return new_product
         except ValueError:
             print("\nInterest rate must be a number.")
@@ -96,17 +102,40 @@ def view_products(products):
     print("-" * 80)
 
 
-def amend_product_details():
-    print("\n:: Amend a Product ::" + "\n" + "-" * 40)
-    view_products(product_list)
+def view_quotes(quotes):
+    print("\n" + "=" * 80 + "\nList of Products" + "\n" + "=" * 80)
+    # LOOP THROUGH LIST OF PRODUCTS
+    for quote in range(len(quotes)):
+        print("No.", quote + 1, )
+        print("{:<20} {:^5} {:<20s}".format("Customer name", ":", quotes[quote][0]))
+        print("{:<20} {:^5} {:<.2f}".format("Loan amount", ":", quotes[quote][1]))
+        print("{:<20} {:^5} {:<20}".format("Loan term", ":", quotes[quote][2]))
+        print("{:<20} {:^5} {:<20}".format("Loan product name", ":", quotes[quote][3]))
+        print("{:<20} {:^5} {:<20}".format("Loan product rate", ":", quotes[quote][4]))
+        print("{:<20} {:^5} {:<.2f}".format("Monthly repayment", ":", quotes[quote][5]))
+        print("{:<20} {:^5} {:<.2f}".format("Total repayment", ":", quotes[quote][6]))
+        print("-" * 80)
+
+
+def product_selection(operation):
     # USER SELECTS PRODUCT TO CHANGE
-    user_product_selection = input("Select the product number to amend : ")
+    user_product_selection = input("Select the product number" + operation + " : ")
     # CHECK USER INPUTS VALID OPTION
     while (not user_product_selection.isdigit()) or (int(user_product_selection) > len(product_list)) or (int(user_product_selection) == 0):
         print("Invalid input! ", end="")
-        user_product_selection = input("Select the product number to amend : ")
+        user_product_selection = input("Select the product number" + operation + " : ")
+    return int(user_product_selection)
 
-    user_product_selection = int(user_product_selection)
+
+def amend_product_details():
+    # # USER SELECTS PRODUCT TO CHANGE
+    # user_product_selection = input("Select the product number to amend : ")
+    # # CHECK USER INPUTS VALID OPTION
+    # while (not user_product_selection.isdigit()) or (int(user_product_selection) > len(product_list)) or (int(user_product_selection) == 0):
+    #     print("Invalid input! ", end="")
+    #     user_product_selection = input("Select the product number to amend : ")
+
+    user_product_selection = (product_selection(" to amend"))
     product_to_amend = product_list[user_product_selection - 1]
 
     # AMEND PRODUCT NAME
@@ -144,10 +173,99 @@ def amend_product_details():
     product_list[user_product_selection - 1] = product_to_amend
 
 
-# **********************************************************************************
+def delete_a_product():
+    # # USER SELECTS PRODUCT TO DELETE
+    # user_product_selection = input("Select the product number to delete : ")
+    # # CHECK USER INPUTS VALID OPTION
+    # while (not user_product_selection.isdigit()) or (int(user_product_selection) > len(product_list)) or (int(user_product_selection) == 0):
+    #     print("Invalid input! ", end="")
+    #     user_product_selection = input("Select the product number to amend : ")
+
+    user_product_selection = product_selection(" to delete")
+    if user_product_selection <= len(product_list):
+        print("You are going to delete : ")
+        print("Product name : ", product_list[user_product_selection - 1][0])
+        print("Product rate : ", product_list[user_product_selection - 1][1])
+        confirm = input("Input c/C to confirm delete (or press enter to skip) : ")
+
+        if (confirm == "c") or (confirm == "C"):
+            product_list.pop(user_product_selection - 1)
+            print("The record has been deleted!")
+            input("Press enter to continue")
+
+
+def create_new_quote():
+    print("\n" + "=" * 40)
+    print("Create a Quote")
+    print("=" * 40)
+
+    # ENTER A CUSTOMER NAME
+    customer_name = input("Please enter customer name : ")
+
+    # ENTER A PRODUCT RATE
+    while True:
+        loan_amount = input("Please input loan amount : ")
+        try:
+            loan_amount = float(loan_amount)
+            if loan_amount < 0:
+                print("\nLoan amount cannot be negative.")
+            else:
+                break
+        except ValueError:
+            print("\nLoan amount must be a number.")
+            continue
+
+    # ENTER TERM OF LOAN IN YEARS
+    while True:
+        loan_term_years = input("Please input term of loan in year : ")
+        try:
+            loan_term_years = int(loan_term_years)
+            if loan_term_years < 0:
+                print("Loan term cannot be negative amount of time.")
+            else:
+                break
+        except ValueError:
+            print("Term of loan must be number of years")
+
+    # VIEW PRODUCTS TO USE FOR QUOTE
+    print("\nThere are", len(product_list), "products:")
+    view_products(product_list)
+
+    # SELECT WHICH PRODUCT TO USE FOR QUOTE
+    user_product_selection = product_selection("")
+    quote_product = product_list[user_product_selection - 1]
+
+    # CALCULATE REPAYMENTS OF NEW LOAN
+    interest_rate = float((quote_product[1]) / 100) / 12
+    loan_term_months = loan_term_years * 12
+    monthly_repayment_amount = loan_amount * interest_rate * ((1 + interest_rate) ** loan_term_months) / ((1 + interest_rate) ** loan_term_months - 1)
+    total_repayable_amount = monthly_repayment_amount * loan_term_months
+
+    # DISPLAY QUOTE DETAILS TO USER
+    print("{:<30} : {:<}".format("Your home loan product name", quote_product[0]))
+    print("{:<30} : {:<}".format("Your home loan rate", quote_product[1]))
+    print("{:<30} : {:<.2f}".format("Your monthly repayment will be", monthly_repayment_amount))
+    print("{:<30} : {:<.2f}".format("Your total repayment will be", total_repayable_amount))
+    input("Press enter to continue")
+
+    new_quote_details = [customer_name, loan_amount, loan_term_months, quote_product[0], quote_product[1], monthly_repayment_amount,
+                         total_repayable_amount]
+    return new_quote_details
+
+
+# *****************************************************************************
 
 # LIST OF PRODUCTS
-product_list = [["Home Loan Flexi", 2.3], ["Santander Fresh Home Loan", 1.8], ["Barclays First-Time Mortgage", 1.98]]
+product_list = [
+    ["Home Loan Flexi", 2.3],
+    ["Santander Fresh Home Loan", 1.8],
+    ["Barclays First-Time Mortgage", 1.98]
+]
+
+# LIST OF QUOTES
+quote_list = [
+    ["Zairul", 120000, 15, "Home Loan Flexi", 2.3, 500, 160000]
+]
 
 # DISPLAY APPLICATION MAIN MENU
 display_main_menu = True
@@ -194,13 +312,17 @@ while display_main_menu:
 
             # OPTION 3: AMEND A PRODUCT
             elif menu_option == 3:
-                amend_product_details()
-                print("\nafter update")
+                print("\n:: Amend a Product ::" + "\n" + "-" * 40)
                 view_products(product_list)
+                amend_product_details()
+                display_products_menu = True
 
             # OPTION 4: DELETE A PRODUCT
             elif menu_option == 4:
-                print("This is where you delete products")
+                print("\n:: Delete a Product ::" + "\n" + "-" * 40)
+                view_products(product_list)
+                delete_a_product()
+                display_products_menu = True
 
             # OPTION 5: RETURN TO MAIN MENU
             else:
@@ -217,11 +339,17 @@ while display_main_menu:
 
             # OPTION 1: CREATE A QUOTE
             if menu_option == 1:
-                print("This is where you create quotes")
+                created_quote = create_new_quote()
+                quote_list.append(created_quote)
+                display_quotes_menu = True
 
             # OPTION 2: VEW QUOTES
             elif menu_option == 2:
-                print("This is where you view quotes")
+                if len(quote_list) == 0:
+                    print("\n" + "-" * 30 + "\n  No quotes have been setup" + "\n" + "-" * 30)
+                    display_quotes_menu = True
+                else:
+                    view_quotes(quote_list)
 
             # OPTION 3: AMEND QUOTES
             elif menu_option == 3:
