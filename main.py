@@ -350,6 +350,8 @@ while display_main_menu:
                     display_quotes_menu = True
                 else:
                     view_quotes(quote_list)
+                input("\nPress enter to return to Manage Quotes Menu ")
+                display_quotes_menu = True
 
             # OPTION 3: AMEND QUOTES
             elif menu_option == 3:
