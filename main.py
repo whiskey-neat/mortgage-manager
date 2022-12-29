@@ -45,7 +45,7 @@ def user_menu_choice(number):
             print("\nEnter a value between 1 and", number)
             display_current_menu()
             continue
-        # VALIDATE NUMBER
+        # VALIDATE INPUTTED NUMBER AGAINST AMOUNT OF MENU OPTIONS
         if (user_menu_option > number) or (user_menu_option <= 0):
             print("\nEnter a value between 1 and", number)
             display_current_menu()
@@ -68,7 +68,8 @@ def create_new_product():
             if new_product_rate < 0:
                 print("\nInterest rate cannot be negative.")
             else:
-                new_product = [new_product_name, new_product_rate]  # IF VALID -> SAVE NEW PRODUCT DETAILS TO VARIABLE
+                # IF VALID -> SAVE NEW PRODUCT DETAILS TO VARIABLE
+                new_product = [new_product_name, new_product_rate]
                 return new_product
         except ValueError:
             print("\nInterest rate must be a number.")
@@ -236,58 +237,55 @@ def amend_quotes(quote_being_amended):
     print("\nLoan product name : ", quote_being_amended[3])
     view_products(product_list)
 
-    # SELECT AMENDED PRODUCT FOR QUOTE
-
-    # SELECT NEW PRODUCT OR ESCAPE
+    # select new loan product or allow the user to escape
     amended_product_selection = input("Select the new product number (input q/Q to escape) : ")
     while True:
+        # user wants to escape amending product
         if (amended_product_selection == "q") or (amended_product_selection == "Q"):
             break
+
+        # user enters a product option to amend
         elif (amended_product_selection.isdigit()) and (int(amended_product_selection) <= len(amended_product_selection)) and int(
                 amended_product_selection) > 0:
             amended_product = int(amended_product_selection)
             amended_quote_product = product_list[amended_product - 1]
 
-            # SETS AMENDED QUOTE PRODUCT NAME
+            # sets amended product name
             quote_being_amended[3] = amended_quote_product[0]
             print("The amended product name is : ", quote_being_amended[3])
-            # SETS AMENDED QUOTE PRODUCT RATE
+            # sets amended product rate
             quote_being_amended[4] = amended_quote_product[1]
             print("The amended product rate is : ", quote_being_amended[4])
-            print(type(quote_being_amended[4]))
             break
+
+        # user enters an invalid character
         else:
             print("Invalid input! ", end="")
             amended_product_selection = input("Select the new product number (input q/Q to escape) : ")
 
-    # CALCULATE VARIABLES NEEDED FOR REPAYMENT FORMULAS
+    # CALCULATE REPAYMENTS OF AMENDED LOAN QUOTE
     interest_rate = (quote_being_amended[4] / 100) / 12
     loan_term_months = int(quote_being_amended[2])
-
-    # CALCULATE REPAYMENT VALUES
-    monthly_repayment_amount = quote_being_amended[1] * interest_rate * ((1 + interest_rate) ** loan_term_months) / ((1 + interest_rate) **
-                                                                                                                     loan_term_months - 1)
+    monthly_repayment_amount = quote_being_amended[1] * interest_rate * ((1 + interest_rate) ** loan_term_months) / ((1 + interest_rate) ** loan_term_months - 1)
     total_repayable_amount = monthly_repayment_amount * loan_term_months
 
+    # STORE AMENDED REPAYMENT VALUES
     quote_being_amended[5] = monthly_repayment_amount
     quote_being_amended[6] = total_repayable_amount
 
 
 def delete_a_product():
-    # # USER SELECTS PRODUCT TO DELETE
-    # user_product_selection = input("Select the product number to delete : ")
-    # # CHECK USER INPUTS VALID OPTION
-    # while (not user_product_selection.isdigit()) or (int(user_product_selection) > len(product_list)) or (int(user_product_selection) == 0):
-    #     print("Invalid input! ", end="")
-    #     user_product_selection = input("Select the product number to amend : ")
-
+    # USER SELECTS PRODUCT TO DELETE
     user_product_selection = product_selection(" to delete")
+    # IF INPUT IS VALID OPTION
     if user_product_selection <= len(product_list):
+        # DISPLAY PRODUCT DETAILS BEFORE DELETION
         print("You are going to delete : ")
         print("Product name : ", product_list[user_product_selection - 1][0])
         print("Product rate : ", product_list[user_product_selection - 1][1])
         confirm = input("Input c/C to confirm delete (or press enter to skip) : ")
 
+        # DELETE PRODUCT IF USER CONFIRMS
         if (confirm == "c") or (confirm == "C"):
             product_list.pop(user_product_selection - 1)
             print("The record has been deleted!")
@@ -348,6 +346,7 @@ def create_new_quote():
     print("{:<30} : {:<.2f}".format("Your total repayment will be", total_repayable_amount))
     input("Press enter to continue")
 
+    # STORE QUOTE DETAILS IN LIST
     new_quote_details = [customer_name, loan_amount, loan_term_months, quote_product[0], quote_product[1], monthly_repayment_amount,
                          total_repayable_amount]
     return new_quote_details
@@ -406,6 +405,7 @@ while display_main_menu:
             elif menu_option == 2:
                 view_products(product_list)
                 input("Press enter to continue")
+                # GO BACK TO MANAGE PRODUCTS MENU
                 display_products_menu = True
 
             # OPTION 3: AMEND A PRODUCT
@@ -413,6 +413,7 @@ while display_main_menu:
                 print("\n:: Amend a Product ::" + "\n" + "-" * 40)
                 view_products(product_list)
                 amend_product_details()
+                # GO BACK TO MANAGE PRODUCTS MENU
                 display_products_menu = True
 
             # OPTION 4: DELETE A PRODUCT
@@ -420,6 +421,7 @@ while display_main_menu:
                 print("\n:: Delete a Product ::" + "\n" + "-" * 40)
                 view_products(product_list)
                 delete_a_product()
+                # GO BACK TO MANAGE PRODUCTS MENU
                 display_products_menu = True
 
             # OPTION 5: RETURN TO MAIN MENU
