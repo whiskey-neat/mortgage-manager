@@ -93,7 +93,7 @@ quotes.
   - ✔ Ask the user to confirm deletion of product
 - ✔ Return to Main Menu (1 Mark)
 
-### 🚀 Manage Mortgage Quotes Requirements (30 Marks)
+### ✅ Manage Mortgage Quotes Requirements (30 Marks)
 
 - ✔ Display the "Manage Mortgage Quotes" submenu (4 Marks)
 - ✔ **Create Quote**: (8 Marks)
@@ -109,10 +109,10 @@ quotes.
     - "No quotes have been set up"
   - ✔ Press enter to return to Manage Quotes Menu (1 Mark)
 - :construction: **Amend Quotes**
-  - 🔳 Display a list of quotes and prompt the user to select one
+  - ✔ Display a list of quotes and prompt the user to select one
 - ✔ Return to Main Menu (1 Mark)
 
-### ⬜ Video Recording (20 Marks)
+### 🚀 Video Recording (20 Marks)
 
 - 📌 No more than 7 minutes long
 - 📌 With Voice
@@ -120,7 +120,7 @@ quotes.
 
 #### Content:
 
-- 🔳 Workable application demonstrating all requirements
+- :construction: Workable application demonstrating all requirements
 - 🔳 A brief explanation of the program code at the **end** of the video
 - 🔳 Explain the source code that is causing errors and interupting the flow of the demonstration
 
