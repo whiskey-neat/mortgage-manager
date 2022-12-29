@@ -127,19 +127,18 @@ def product_selection(operation):
     return int(user_product_selection)
 
 
-# def get_quote_selection():
-#     quote_selection = input("Select the quote number to amend (enter q/Q to escape) : ")
-#     while True:
-#         # CHECK IF USER DOES NOT WANT TO ESCAPE
-#         if (quote_selection != "q") and (quote_selection != "Q"):
-#             while True:
-#                 # CHECK USER INPUTS VALID OPTION
-#                 while (not quote_selection.isdigit()) or (int(quote_selection) > len(product_list)) or (int(quote_selection) == 0):
-#                     print("Invalid input! ", end="")
-#                     quote_selection = input("Select the quote number to amend (enter q/Q to escape) : ")
-#                 return quote_selection
-#         else:
-#             return quote_selection
+def get_quote_selection():
+    user_quote_selection = input("Select the quote number to amend (enter q/Q to escape) : ")
+    while True:
+        # check if user wants to escape
+        if (user_quote_selection == "q") or (user_quote_selection == "Q"):
+            return user_quote_selection
+        # if user enters a digit, and it is equal to or less than the length of the quote list and more than 0
+        elif (user_quote_selection.isdigit()) and (int(user_quote_selection) <= len(user_quote_selection)) and int(user_quote_selection) > 0:
+            return user_quote_selection
+        else:
+            print("Invalid input! ", end="")
+            user_quote_selection = input("Select the quote number to amend (enter q/Q to escape) : ")
 
 
 def amend_product_details():
@@ -182,106 +181,96 @@ def amend_product_details():
     product_list[user_product_selection - 1] = product_to_amend
 
 
-def amend_quotes():
-    # USER SELECTS QUOTE TO AMEND
-    quote_selection = input("Select the quote number to amend (enter q/Q to escape) : ")
+def amend_quotes(quote_being_amended):
+    # AMEND QUOTE NAME
+    print("\nCustomer name :", quote_being_amended[0])
+    amended_customer_name = input("Input the new customer name (input q/Q to escape) : ")
+    if (amended_customer_name != "q") and (amended_customer_name != "Q"):
+        quote_being_amended[0] = amended_customer_name
+
+    # AMEND LOAN AMOUNT
+    print("\nLoan amount : ", quote_being_amended[1])
     while True:
-        # check if user does not want to escape
-        if (quote_selection != "q") and (quote_selection != "Q"):
-            while True:
-                # loop until user enters valid option
-                while (not quote_selection.isdigit()) or (int(quote_selection) > len(product_list)) or (int(quote_selection) == 0):
-                    print("Invalid input! ", end="")
-                    quote_selection = input("Select the quote number to amend (enter q/Q to escape) : ")
-
-                # user input is valid quote number
-                quote_selection = int(quote_selection)
-                quote_to_amend = quote_list[quote_selection - 1]
-
-                # AMEND QUOTE NAME
-                print("Customer name : ", quote_to_amend[0])
-                amended_customer_name = input("New product name (input q/Q to escape) : ")
-                if (amended_customer_name != "q") and (amended_customer_name != "Q"):
-                    quote_to_amend[0] = amended_customer_name
-
-                # AMEND LOAN AMOUNT
-                print("Loan amount : ", quote_to_amend[1])
-                while True:
-                    try:
-                        amended_loan_amount = input("Input the new loan amount (input q/Q to escape) : ")
-                        # if user doesn't enter q/Q
-                        if (amended_loan_amount != "q") and (amended_loan_amount != "Q"):
-                            # check for negative numerical value
-                            if int(amended_loan_amount) < 0:
-                                print("Loan amount cannot be negative.")
-                            # else the input is valid
-                            else:
-                                try:
-                                    # update the quote with the new loan amount
-                                    quote_to_amend[1] = float(amended_loan_amount)
-                                    break
-                                except ValueError:
-                                    print("\nLoan amount must be a number.")
-                                    break
-                        else:
-                            break
-                    except ValueError:
-                        print("Loan amount must be a number.")
-
-                # AMEND LOAN TERM
-                print("Loan term : ", quote_to_amend[2])
-                while True:
-                    try:
-                        amended_loan_term = input("Input the new loan term in year (input q/Q to escape) : ")
-                        # if the user doesn't enter q/Q
-                        if (amended_loan_term != "q") and (amended_loan_term != "Q"):
-                            # check user has not entered negative number
-                            if int(amended_loan_term) < 0:
-                                print("Loan term cannot be negative.")
-                            # else the input is valid
-                            else:
-                                try:
-                                    # update the selected quote with the new loan term
-                                    quote_to_amend[2] = int(amended_loan_term)
-                                    break
-                                except ValueError:
-                                    print("\nLoan term must be a number.")
-                                    break
-                        # if user does enter q/Q skip the field
-                        else:
-                            break
-                    except ValueError:
-                        print("Loan term must be a number.")
-
-                # AMEND LOAN PRODUCT
-                print("Loan product name : ", quote_to_amend[3])
-                view_products(product_list)
-                while True:
-                    try:
-                        selected_quote_product = input("Select the product number for the new loan product (input q/Q to escape): ")
-                        # IF USER DOESN'T ENTER q/Q
-                        if (selected_quote_product != "q") and (selected_quote_product != "Q"):
-                            # while user enters non-digit, or number not present on list
-                            while (not selected_quote_product.isdigit()) or (int(selected_quote_product) > len(product_list)) or (
-                                    int(selected_quote_product) == 0):
-                                # tell them they entered something invalid
-                                print("Invalid input! ", end="")
-                                selected_quote_product = input("Select the product number for the new loan product (input q/Q to escape) : ")
-                            # if user does enter a valid number
-                            amended_quote_product = int(selected_quote_product)
-                            quote_to_amend[3] = product_list[amended_quote_product - 1][0]
-                            quote_to_amend[4] = product_list[amended_quote_product - 1][1]
-                            print(quote_to_amend[3], quote_to_amend[4])
-                            break
-                        # IF USER DOES ENTER q/Q SKIP FIELD
-                        else:
-                            break
-                    except ValueError:
-                        print("Invalid input")
-
-        # IF USER ENTERS q/Q WHEN SELECTING QUOTE TO AMEND
+        amended_loan_amount = input("Input the new loan amount (input q/Q to escape) : ")
+        # if user doesn't enter q/Q
+        if (amended_loan_amount != "q") and (amended_loan_amount != "Q"):
+            # check for negative numerical value
+            if int(amended_loan_amount) < 0:
+                print("Loan amount cannot be negative.")
+            # else the input is valid
+            else:
+                try:
+                    # update the quote with the new loan amount
+                    quote_being_amended[1] = float(amended_loan_amount)
+                    break
+                except ValueError:
+                    print("\nLoan amount must be a number.")
+                    break
+        # if user enters q/Q
         else:
             break
+
+    # AMEND LOAN TERM
+    print("\nLoan term : ", quote_being_amended[2])
+    while True:
+        amended_loan_term_years = input("Input the new loan term in year (input q/Q to escape) : ")
+        # if the user doesn't enter q/Q
+        if (amended_loan_term_years != "q") and (amended_loan_term_years != "Q"):
+            # check user has not entered negative number
+            if int(amended_loan_term_years) < 0:
+                print("Loan term cannot be negative.")
+            # else the input is valid
+            else:
+                try:
+                    # update the selected quote with the new loan term
+                    quote_being_amended[2] = int(amended_loan_term_years)
+                    break
+                except ValueError:
+                    print("\nLoan term must be a number.")
+                    break
+        # if user enters q/Q
+        else:
+            break
+
+    # AMEND LOAN PRODUCT
+    print("\nLoan product name : ", quote_being_amended[3])
+    view_products(product_list)
+
+    # SELECT AMENDED PRODUCT FOR QUOTE
+
+    # SELECT NEW PRODUCT OR ESCAPE
+    amended_product_selection = input("Select the new product number (input q/Q to escape) : ")
+    while True:
+        if (amended_product_selection == "q") or (amended_product_selection == "Q"):
+            break
+        elif (amended_product_selection.isdigit()) and (int(amended_product_selection) <= len(amended_product_selection)) and int(
+                amended_product_selection) > 0:
+            amended_product = int(amended_product_selection)
+            amended_quote_product = product_list[amended_product - 1]
+
+            # SETS AMENDED QUOTE PRODUCT NAME
+            quote_being_amended[3] = amended_quote_product[0]
+            print("The amended product name is : ", quote_being_amended[3])
+            # SETS AMENDED QUOTE PRODUCT RATE
+            quote_being_amended[4] = amended_quote_product[1]
+            print("The amended product rate is : ", quote_being_amended[4])
+            print(type(quote_being_amended[4]))
+            break
+        else:
+            print("Invalid input! ", end="")
+            amended_product_selection = input("Select the new product number (input q/Q to escape) : ")
+
+    # CALCULATE VARIABLES NEEDED FOR REPAYMENT FORMULAS
+    interest_rate = (quote_being_amended[4] / 100) / 12
+    loan_term_months = int(quote_being_amended[2])
+
+    # CALCULATE REPAYMENT VALUES
+    monthly_repayment_amount = quote_being_amended[1] * interest_rate * ((1 + interest_rate) ** loan_term_months) / ((1 + interest_rate) **
+                                                                                                                     loan_term_months - 1)
+    total_repayable_amount = monthly_repayment_amount * loan_term_months
+
+    quote_being_amended[5] = monthly_repayment_amount
+    quote_being_amended[6] = total_repayable_amount
 
 
 def delete_a_product():
@@ -458,17 +447,22 @@ while display_main_menu:
             elif menu_option == 2:
                 if len(quote_list) == 0:
                     print("\n" + "-" * 30 + "\n  No quotes have been setup" + "\n" + "-" * 30)
-                    display_quotes_menu = True
                 else:
                     view_quotes(quote_list)
-                input("\nPress enter to return to Manage Quotes Menu ")
+                    input("\nPress enter to return to Manage Quotes Menu")
                 display_quotes_menu = True
 
             # OPTION 3: AMEND QUOTES
             elif menu_option == 3:
                 print("\n:: Amend a Quote ::" + "\n" + "-" * 40)
                 view_quotes(quote_list)
-                amend_quotes()
+                quote_selection = get_quote_selection()
+                # if user does not want to skip
+                if (quote_selection != "q") and (quote_selection != "Q"):
+                    # convert selected quote number to quote_list index number
+                    quote_to_amend = quote_list[int(quote_selection) - 1]
+                    # amend the selected quote
+                    amend_quotes(quote_to_amend)
                 input("Press enter to continue: ")
                 display_quotes_menu = True
 
