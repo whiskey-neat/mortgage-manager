@@ -157,15 +157,15 @@ def amend_product_details():
     while True:
         try:
             amended_product_rate = input("New product rate (press q/Q to escape) : ")
-            # IF USER DOESN'T ENTER q/Q
+            # if user doesn't enter q/Q
             if (amended_product_rate != "q") and (amended_product_rate != "Q"):
-                # CHECK USER HASN'T ENTERED A NEGATIVE NUMBER
+                # check for negative numbers
                 if int(amended_product_rate) < 0:
                     print("Interest rate cannot be negative.")
-                # ELSE IF VALID INPUT
+                # else the input is valid
                 else:
                     try:
-                        # UPDATE THE PRODUCT BEING AMENDED
+                        # update the product being edited
                         product_to_amend[1] = float(amended_product_rate)
                         break
                     except ValueError:
@@ -352,8 +352,6 @@ def create_new_quote():
                          total_repayable_amount]
     return new_quote_details
 
-
-# *****************************************************************************
 
 # LIST OF PRODUCTS
 product_list = [
