@@ -108,7 +108,7 @@ quotes.
   - ✔ If there are no quotes then display the following message:
     - "No quotes have been set up"
   - ✔ Press enter to return to Manage Quotes Menu (1 Mark)
-- :construction: **Amend Quotes**
+- ✔ **Amend Quotes**
   - ✔ Display a list of quotes and prompt the user to select one
 - ✔ Return to Main Menu (1 Mark)
 
