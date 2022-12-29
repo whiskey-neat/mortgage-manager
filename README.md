@@ -96,19 +96,19 @@ quotes.
 ### 🚀 Manage Mortgage Quotes Requirements (30 Marks)
 
 - ✔ Display the "Manage Mortgage Quotes" submenu (4 Marks)
-- :construction: **Create Quote**: (8 Marks)
+- ✔ **Create Quote**: (8 Marks)
   - Allow the user to create a quote requiring the following fields:
     - Customer Name
     - Loan Amount
     - Term of Loan in Years
     - Product
   - Save the record in a list
-- 🔳 **List Quotes**
-  - 🔳 Displays a list of exisiting quotes (8 Marks)
-  - 🔳 If there are no quotes then display the following message:
+- ✔ **List Quotes**
+  - ✔ Displays a list of exisiting quotes (8 Marks)
+  - ✔ If there are no quotes then display the following message:
     - "No quotes have been set up"
-  - 🔳 Press enter to return to Manage Quotes Menu (1 Mark)
-- 🔳 **Amend Quotes**
+  - ✔ Press enter to return to Manage Quotes Menu (1 Mark)
+- :construction: **Amend Quotes**
   - 🔳 Display a list of quotes and prompt the user to select one
 - ✔ Return to Main Menu (1 Mark)
 
