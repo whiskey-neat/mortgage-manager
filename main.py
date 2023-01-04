@@ -5,7 +5,8 @@ def mortgage_manager_main():
         print("1. Manage Mortgage Quotes")
         print("2. Manage Quotes")
         print("3. Exit")
-
+        
+        # prompt user for menu option
         menu_option = get_menu_option(3)
 
         if menu_option:
@@ -33,9 +34,7 @@ def get_menu_option(number):
         print("\nPlease enter a value between 1 and", number)
 
 
-# ------------------------------------------
-#       FUNCTIONS: MANAGING PRODUCTS
-# ------------------------------------------
+# FUNCTIONS: MANAGING PRODUCTS
 
 def manage_products():
     while True:
@@ -183,28 +182,41 @@ def delete_products():
     # display products to select
     view_products(product_list)
 
+    # product_number = int(get_product_selection("delete"))
     # select product number to delete
-    product_number = int(get_product_selection("delete"))
+    while True:
+        product_selection = input("Select the quote number to amend (enter q/Q to escape) : ")
+        # if user wants to escape
+        if (product_selection == "q") or (product_selection == "Q"):
+            break
+        # user input is valid
+        elif (product_selection.isdigit()) and (int(product_selection) <= len(product_list)) and int(product_selection) > 0:
+            break
+        # user input is invalid
+        else:
+            print("Invalid input! ", end="")
 
-    if product_number <= len(product_list):
-        product = product_number - 1
-        print("Your are going to delete : ")
-        print("Product name : ", product_list[product][0])
-        print("Product rate : ", product_list[product][1])
-        confirm = input("Input c/C to confirm delete (or press enter to skip) : ")
+    # if user does not escape
+    if (product_selection != "q") and (product_selection != "Q"):
+        product_number = int(product_selection) - 1
 
-        # delete product if user confirms
-        if (confirm == "c") or (confirm == "C"):
-            product_list.pop(product)
-            print("The record has been deleted!")
-            input("Press enter to continue")
+        if product_number <= len(product_list):
+            product = product_number - 1
+            print("Your are going to delete : ")
+            print("Product name : ", product_list[product][0])
+            print("Product rate : ", product_list[product][1])
+            confirm = input("Input c/C to confirm delete (or press enter to skip) : ")
 
-        manage_products()
+            # delete product if user confirms
+            if (confirm == "c") or (confirm == "C"):
+                product_list.pop(product)
+                print("The record has been deleted!")
+                input("Press enter to continue")
 
-# ---------------------------------------------
-#           FUNCTIONS: MANAGING QUOTES
-# ---------------------------------------------
+    manage_products()
 
+
+# FUNCTIONS: MANAGING QUOTES
 
 def manage_quotes():
     while True:
@@ -398,10 +410,8 @@ def amend_quotes():
     input("Press enter to continue ")
     manage_quotes()
 
-
-# ----------------------------------------
-#               MAIN PROGRAM
-# ----------------------------------------
+    
+# MAIN PROGRAM
 
 # list of products
 product_list = [
