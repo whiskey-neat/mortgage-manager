@@ -5,8 +5,7 @@ def mortgage_manager_main():
         print("1. Manage Mortgage Quotes")
         print("2. Manage Quotes")
         print("3. Exit")
-        
-        # prompt user for menu option
+
         menu_option = get_menu_option(3)
 
         if menu_option:
@@ -137,6 +136,7 @@ def get_product_selection(operation):
 
 
 def amend_products():
+    print("\n:: Amend a Product ::" + "\n" + "-" * 40)
     view_products(product_list)
 
     # select product number to amend
@@ -178,14 +178,14 @@ def amend_products():
 
 
 def delete_products():
-
+    print("\n:: Delete a Product ::" + "\n" + "-" * 40)
     # display products to select
     view_products(product_list)
 
     # product_number = int(get_product_selection("delete"))
     # select product number to delete
     while True:
-        product_selection = input("Select the quote number to amend (enter q/Q to escape) : ")
+        product_selection = input("Select the product number to delete (enter q/Q to escape) : ")
         # if user wants to escape
         if (product_selection == "q") or (product_selection == "Q"):
             break
@@ -198,10 +198,9 @@ def delete_products():
 
     # if user does not escape
     if (product_selection != "q") and (product_selection != "Q"):
-        product_number = int(product_selection) - 1
 
-        if product_number <= len(product_list):
-            product = product_number - 1
+        if int(product_selection) <= len(product_list):
+            product = int(product_selection) - 1
             print("Your are going to delete : ")
             print("Product name : ", product_list[product][0])
             print("Product rate : ", product_list[product][1])
@@ -237,8 +236,12 @@ def manage_quotes():
     if menu_option == 1:
         add_quotes()
     elif menu_option == 2:
-        view_quotes(quote_list)
-        input("Press enter to continue: ")
+        # if there are no quotes
+        if len(quote_list) == 0:
+            print("\n" + "-" * 30 + "\n  No quotes have been set up\n" + "-" * 30)
+        else:
+            view_quotes(quote_list)
+            input("Press enter to continue: ")
         # return to mortgage products menu
         manage_quotes()
     elif menu_option == 3:
@@ -407,11 +410,13 @@ def amend_quotes():
         # store repayment values
         quote_to_amend[5] = monthly_repayment_amount
         quote_to_amend[6] = total_repayable_amount
-    input("Press enter to continue ")
+        input("Press enter to continue ")
     manage_quotes()
 
-    
-# MAIN PROGRAM
+
+# ----------------------------------------
+#               MAIN PROGRAM
+# ----------------------------------------
 
 # list of products
 product_list = [
