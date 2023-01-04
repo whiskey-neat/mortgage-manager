@@ -112,7 +112,7 @@ quotes.
   - ✔ Display a list of quotes and prompt the user to select one
 - ✔ Return to Main Menu (1 Mark)
 
-### 🚀 Video Recording (20 Marks)
+### ✅ Video Recording (20 Marks)
 
 - 📌 No more than 7 minutes long
 - 📌 With Voice
@@ -120,9 +120,9 @@ quotes.
 
 #### Content:
 
-- :construction: Workable application demonstrating all requirements
-- 🔳 A brief explanation of the program code at the **end** of the video
-- 🔳 Explain the source code that is causing errors and interupting the flow of the demonstration
+- ✔ Workable application demonstrating all requirements
+- ✔ A brief explanation of the program code at the **end** of the video
+- ✔ Explain the source code that is causing errors and interupting the flow of the demonstration
 
 See the [open issues](https://github.com/whiskey-neat/mortgage-manager/issues) for a full list of proposed features (and known issues).
 
