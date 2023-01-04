@@ -2,7 +2,7 @@ def mortgage_manager_main():
     while True:
         # display the application main menu
         print("\n" + "-" * 40 + "\n:: Welcome to Mortgage Quotes System ::" + "\n" + "-" * 40)
-        print("1. Manage Mortgage Quotes")
+        print("1. Manage Mortgage Products")
         print("2. Manage Quotes")
         print("3. Exit")
 
